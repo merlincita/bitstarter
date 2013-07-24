@@ -5,10 +5,9 @@ app.use(express.logger());
 var fs = require('fs');
 
 app.get('/', function(request, response) {
-  fs.readFile('index.html', function (err, data) {
-    if (err) throw err;
-    response.send(data);
-  });
+  content = fs.readFileSync('index.html', 'utf8');
+  var buffer = new Buffer(content, "utf-8");
+  response.send(buffer.toString('utf-8'));
 });
 
 var port = process.env.PORT || 5000;
